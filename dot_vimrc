@@ -145,6 +145,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.opt/fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 "Plug 'nhooyr/fasd.vim'
 
+" ## PREVIEW ##
+" markdown preview plugin for (neo)vim
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
 call plug#end()
 
 " Use hidden buffers. Allows to change buffer without saving.
