@@ -516,6 +516,10 @@ nnoremap SS :s//&\r/g<CR>
 
 " spelling
 autocmd BufRead,BufNewFile *.tex setlocal spell
+autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.mmark setlocal spell
+autocmd FileType mail setlocal spell
+
 set spelllang=en_us
 " set spellfile=~/.vim/spell/en.utf-8.add
 let g:tex_comment_nospell= 1
