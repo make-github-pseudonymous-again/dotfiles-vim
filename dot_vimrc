@@ -271,6 +271,12 @@ set background=dark
 silent! colorscheme hybrid
 "silent! colorscheme seoul256
 
+" Avoid vimdiff color clashes
+" See https://stackoverflow.com/a/49061325/1582182
+if &diff
+  syntax off
+endif
+
 
 " Replace search with easymotion multi char search
 map  / <Plug>(easymotion-sn)
