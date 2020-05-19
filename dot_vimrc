@@ -195,11 +195,16 @@ set nomodeline
 set secure
 " Enable line numbers
 set number
-" Do not highlight current line and do not use relative line numbers (SLOW)
+" Do not highlight current line (SLOW)
 " see https://github.com/xolox/vim-easytags/issues/88
 set nocursorline
 if exists("&relativenumber")
-  set norelativenumber
+  " Swap between relative in non relative number lines
+  set relativenumber
+  autocmd InsertEnter * :set norelativenumber
+  autocmd InsertLeave * :set relativenumber
+  " Do not use relative line numbers (SLOW)
+  "set norelativenumber
   "au BufReadPost * set relativenumber
 endif
 " Make tabs as wide as four spaces
