@@ -495,8 +495,8 @@ function! s:latexSurround()
 endfunction
 
 let g:ranger_map_keys = 0
-map <leader>r :RangerWorkingDirectory<CR>
-map <leader>R :RangerCurrentFile<CR>
+map <leader>R :RangerWorkingDirectory<CR>
+map <leader>r :RangerCurrentFile<CR>
 
 " jsx
 let g:jsx_ext_required = 0
