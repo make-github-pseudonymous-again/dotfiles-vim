@@ -481,7 +481,7 @@ endif
 function! s:iea_handler(lines)
   exec ':normal A' . join(a:lines,', ')
 endfunction
-command! InsertEmailAddresses call fzf#run({'source': 'notmuch-abook export -f email -s name', 'sink*': function('<sid>iea_handler'), 'options': '-m'})
+command! InsertEmailAddresses call fzf#run({'source': 'notmuch-abook export -f email -s name', 'sink*': function('<sid>iea_handler'), 'options': '--bind "tab:toggle+clear-query" -m'})
 nn <silent> <leader>v :InsertEmailAddress<CR>
 
 " vimtex + surround = magic
