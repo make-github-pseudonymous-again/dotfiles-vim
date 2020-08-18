@@ -198,15 +198,26 @@ set number
 " Do not highlight current line (SLOW)
 " see https://github.com/xolox/vim-easytags/issues/88
 set nocursorline
-if exists("&relativenumber")
-  " Swap between relative in non relative number lines
-  set relativenumber
-  autocmd InsertEnter * :set norelativenumber
-  autocmd InsertLeave * :set relativenumber
-  " Do not use relative line numbers (SLOW)
-  "set norelativenumber
-  "au BufReadPost * set relativenumber
-endif
+function! s:enable_autonumber()
+  " See https://github.com/junegunn/goyo.vim/issues/191#issue-402382972
+  " and https://jeffkreeftmeijer.com/vim-number
+  augroup rn_autonumber
+    au!
+    if exists("&relativenumber")
+      " Swap between relative in non relative number lines
+      set relativenumber
+      autocmd InsertEnter * :set norelativenumber
+      autocmd InsertLeave * :set relativenumber
+      " Do not use relative line numbers (SLOW)
+      "set norelativenumber
+      "au BufReadPost * set relativenumber
+    endif
+  augroup END
+endfunction
+function! s:disable_autonumber()
+    au! rn_autonumber
+endfunction
+call s:enable_autonumber()
 " Make tabs as wide as four spaces
 set tabstop=4
 set shiftwidth=4
@@ -378,6 +389,7 @@ function! s:goyo_enter()
     silent !tmux set status off
   endif
   " hi NonText ctermfg=101
+  call s:disable_autonumber()
   set nowrap
   Limelight
   set scrolloff=999
@@ -394,6 +406,7 @@ function! s:goyo_leave()
     silent !tmux set status on
   endif
   set wrap
+  call s:enable_autonumber()
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
