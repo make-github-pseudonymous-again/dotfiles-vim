@@ -503,6 +503,9 @@ augroup latexSurround
   autocmd FileType tex,plaintex call s:latexSurround()
 augroup END
 
+" vimtex synctex
+let g:vimtex_view_method = "mupdf"
+
 function! s:latexSurround()
   let b:surround_{char2nr("e")}
     \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
