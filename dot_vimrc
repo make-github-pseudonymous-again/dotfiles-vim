@@ -86,7 +86,7 @@ Plug 'Chiel92/vim-autoformat'
 " plug-in which provides support for expanding abbreviations similar to emmet
 Plug 'mattn/emmet-vim'
 " Generate JSDoc to your JavaScript code
-Plug 'heavenshell/vim-jsdoc'
+Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 " Go development plugin for Vim
 Plug 'fatih/vim-go'
 " tern is a JavaScript code analyzer for deep, cross-editor language support
@@ -449,7 +449,9 @@ let g:undotree_WindowLayout = 2
 nnoremap <silent> U :UndotreeToggle<CR>
 
 " search for last function def and call jsdoc
-nmap <silent> <leader>j ?function<CR>:noh<CR><Plug>(jsdoc)
+"let g:jsdoc_enable_es6=1
+nmap <silent> <leader>j ?\(function\\|=>\\|class\)<CR>:noh<CR><Plug>(jsdoc)
+nmap <silent> <leader>J <Plug>(jsdoc)
 
 " noh shortcut
 nn <silent> <leader>d :noh<CR>
