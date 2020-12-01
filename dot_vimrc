@@ -110,6 +110,8 @@ Plug 'brennier/quicktex'
 "Plug 'vimperator/vimperator.vim'
 " Vim syntax for TOML
 Plug 'https://github.com/cespare/vim-toml'
+" A vim 7.4+ plugin to generate table of contents for Markdown files.
+Plug 'https://github.com/mzlogin/vim-markdown-toc'
 
 " ## MOTIONS ##
 " search and jump to a single character with <leader><leader>s<char>
