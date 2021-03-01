@@ -71,14 +71,16 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " ## COMPLETION ##
-" allows you to use <Tab> for all your insert completion needs
-Plug 'ervandew/supertab'
+" allows you to use <Tab> for all your insert completion needs (I use coc.nvim)
+" Plug 'ervandew/supertab'
 " Vim plugin, provides insert mode auto-completion for quotes, parens, brackets, etc.
 Plug 'Raimondi/delimitMate'
 
 " ## LANGUAGE SUPPORT ##
 " Syntax checking hacks for vim
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
+" Nodejs extension host for vim, load extensions like VSCode and host language servers
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Provide easy code formatting in Vim by integrating existing code formatters.
 Plug 'Chiel92/vim-autoformat'
 " plug-in which provides support for expanding abbreviations similar to emmet
@@ -361,37 +363,6 @@ let g:delimitMate_expand_cr = 1
 " Syntax highlighting
 " Enable jsdoc highlighting in pangloss/vim-javascript
 let g:javascript_plugin_jsdoc = 1
-
-" syntastic
-let g:syntastic_mode_map = { 'mode': 'passive' }
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint', 'xo']
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
-
-"toggle syntastic on a per buffer basis
-function! SyntasticToggle()
-    if !exists('b:syntastic_disabled')
-        let b:syntastic_disabled = 0
-    endif
-    if !b:syntastic_disabled
-        let b:syntastic_mode = "passive"
-        SyntasticReset
-        let b:syntastic_disabled = 1
-    else
-        SyntasticCheck
-        let b:syntastic_mode = "active"
-        let b:syntastic_disabled = 0
-    endif
-    echo 'Syntastic ' . ['enabled', 'disabled'][b:syntastic_disabled]
-endfunction
-
-" Shortcut for toggling syntastic
-command! SyntasticToggle call SyntasticToggle()
-nn <silent> <leader>s :SyntasticToggle<CR>
-nn <silent> <leader>S :SyntasticToggleMode<CR>
 
 " Shortcut for formatting code
 nn <silent> <leader>x :Autoformat<CR>
