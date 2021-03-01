@@ -83,8 +83,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Provide easy code formatting in Vim by integrating existing code formatters.
 Plug 'Chiel92/vim-autoformat'
-" plug-in which provides support for expanding abbreviations similar to emmet
-Plug 'mattn/emmet-vim'
+" plug-in which provides support for expanding abbreviations similar to emmet (I do not write HTML)
+" Plug 'mattn/emmet-vim'
 " Generate JSDoc to your JavaScript code
 Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 " Go development plugin for Vim
