@@ -290,6 +290,10 @@ if &diff
   syntax off
 endif
 
+" This is BROKEN (https://github.com/vim/vim/issues/4738)
+"let g:netrw_browsex_viewer = 'xdg-open'
+"let g:netrw_http_cmd = 'xdg-open'
+nmap gx yiW:!wb '--new-window' <cWORD><CR> <C-r>" & <CR><CR>
 
 " Replace search with easymotion multi char search
 map  / <Plug>(easymotion-sn)
