@@ -293,7 +293,17 @@ endif
 " This is BROKEN (https://github.com/vim/vim/issues/4738)
 "let g:netrw_browsex_viewer = 'xdg-open'
 "let g:netrw_http_cmd = 'xdg-open'
-nmap gx yiW:!wb '--new-window' <cWORD><CR> <C-r>" & <CR><CR>
+function! OpenURLUnderCursor()
+    let s:uri = expand('<cWORD>')
+    let s:uri = matchstr(s:uri, '[a-z]*:\/\/\([A-Za-z0-9._~:/?#@!$&*+,;=-]\|%[0-9a-fA-F]{2}\)*')
+    let s:uri = substitute(s:uri, '?', '\\?', '')
+    let s:uri = shellescape(s:uri, 1)
+    if s:uri != ''
+      silent exec "!wb --new-window ".s:uri
+      :redraw!
+    endif
+endfunction
+nnoremap gx :call OpenURLUnderCursor()<CR>
 
 " Replace search with easymotion multi char search
 map  / <Plug>(easymotion-sn)
