@@ -75,8 +75,6 @@ Plug 'junegunn/limelight.vim'
 Plug 'ervandew/supertab'
 " Vim plugin, provides insert mode auto-completion for quotes, parens, brackets, etc.
 Plug 'Raimondi/delimitMate'
-" Emoji in Vim
-Plug 'junegunn/vim-emoji'
 
 " ## LANGUAGE SUPPORT ##
 " Syntax checking hacks for vim
@@ -526,6 +524,13 @@ function! s:iea_handler(lines)
 endfunction
 command! InsertEmailAddresses call fzf#run({'source': 'notmuch-abook export -f email -s name', 'sink*': function('<sid>iea_handler'), 'options': '--bind "tab:toggle+clear-query" -m'})
 nn <silent> <leader>v :InsertEmailAddress<CR>
+
+" Emoji completion using abook and fzf
+function! s:iemj_handler(lines)
+  exec ':normal i' . join(a:lines,', ')
+endfunction
+command! InsertEmoji call fzf#run({'source': 'emojify --list | grep "^:"', 'sink*': function('<sid>iemj_handler')})
+nn <silent> <leader>i :InsertEmoji<CR>
 
 " vimtex + surround = magic
 augroup latexSurround
