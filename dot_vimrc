@@ -87,10 +87,10 @@ Plug 'Chiel92/vim-autoformat'
 " Plug 'mattn/emmet-vim'
 " Generate JSDoc to your JavaScript code
 Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
-" Go development plugin for Vim
-Plug 'fatih/vim-go'
-" tern is a JavaScript code analyzer for deep, cross-editor language support
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+" Go development plugin for Vim (I do not write Go)
+" Plug 'fatih/vim-go'
+" tern is a JavaScript code analyzer for deep, cross-editor language support (Does not work well)
+" Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 " Enhanced javascript syntax file for Vim
 " Plug 'jelera/vim-javascript-syntax'
 " Vastly improved Javascript indentation and syntax support in Vim
