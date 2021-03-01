@@ -90,11 +90,13 @@ Plug 'fatih/vim-go'
 " tern is a JavaScript code analyzer for deep, cross-editor language support
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 " Enhanced javascript syntax file for Vim
-Plug 'jelera/vim-javascript-syntax'
+" Plug 'jelera/vim-javascript-syntax'
 " Vastly improved Javascript indentation and syntax support in Vim
 Plug 'pangloss/vim-javascript'
-" React JSX syntax highlighting and indenting for vim
-Plug 'mxw/vim-jsx'
+" The most accurate syntax highlighting plugin for JavaScript and Flow.js
+" Plug 'yuezk/vim-js'
+" JSX and TSX syntax pretty highlighting for vim
+Plug 'maxmellon/vim-jsx-pretty'
 " :heart: JavaScript happiness style linter
 Plug 'xojs/vim-xo'
 " A code-completion engine for Vim
@@ -344,6 +346,10 @@ let g:delimitMate_expand_cr = 1
 " function! Multiple_cursors_after()
 " let g:ycm_filetype_whitelist = s:old_ycm_whitelist
 " endfunction
+
+" Syntax highlighting
+" Enable jsdoc highlighting in pangloss/vim-javascript
+let g:javascript_plugin_jsdoc = 1
 
 " syntastic
 let g:syntastic_mode_map = { 'mode': 'passive' }
