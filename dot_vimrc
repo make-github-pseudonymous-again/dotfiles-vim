@@ -466,6 +466,14 @@ nmap <silent> <leader>J <Plug>(jsdoc)
 " noh shortcut
 nn <silent> <leader>d :noh<CR>
 
+" Places the current match at the center of the window ('junegunn/vim-slash')
+if has('timers')
+  " Blink 2 times with 50ms interval
+  noremap <expr> <plug>(slash-after) 'zz'.slash#blink(2, 50)
+else
+  noremap <expr> <plug>(slash-after) zz
+endif
+
 " shorter window moves
 nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
