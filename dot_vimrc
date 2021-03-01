@@ -137,7 +137,7 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdcommenter'
 " A Vim alignment plugin
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
-" A vim plugin that simplifies the transition between multiline and single-line code
+" A vim plugin that simplifies the transition between multiline and single-line code (gS gJ)
 Plug 'AndrewRadev/splitjoin.vim'
 
 " ## FUZZY FINDER ## ( Used a lot!!! )
