@@ -57,7 +57,7 @@ Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'ntpeters/vim-better-whitespace'
 " A Vim plugin for visually displaying indent levels in code: <leader>ig
 Plug 'nathanaelkane/vim-indent-guides'
-" A git commit browser
+" A git commit browser (depends on tpope/vim-fugitive)
 Plug 'junegunn/gv.vim'
 " The ultimate undo history visualizer
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
