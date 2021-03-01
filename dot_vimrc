@@ -484,8 +484,7 @@ let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 " search for last function def and call jsdoc
-"let g:jsdoc_enable_es6=1
-nmap <silent> <leader>j ?\(function\\|=>\\|class\)<CR>:noh<CR><Plug>(jsdoc)
+nmap <silent> <leader>j ?\(function \\|=>\\|class \)<CR>:noh<CR><Plug>(jsdoc)
 nmap <silent> <leader>J <Plug>(jsdoc)
 
 " noh shortcut
