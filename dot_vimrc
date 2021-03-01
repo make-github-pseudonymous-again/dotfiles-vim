@@ -101,7 +101,7 @@ Plug 'pangloss/vim-javascript'
 " JSX and TSX syntax pretty highlighting for vim
 Plug 'maxmellon/vim-jsx-pretty'
 " :heart: JavaScript happiness style linter
-Plug 'xojs/vim-xo'
+" Plug 'xojs/vim-xo'
 " A code-completion engine for Vim
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 " Compiling requires too much memory, fails every time
