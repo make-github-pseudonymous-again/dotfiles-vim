@@ -96,6 +96,7 @@ Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 " Vastly improved Javascript indentation and syntax support in Vim
 Plug 'pangloss/vim-javascript'
 " The most accurate syntax highlighting plugin for JavaScript and Flow.js
+" (I do not like the different color for native functions and methods).
 " Plug 'yuezk/vim-js'
 " JSX and TSX syntax pretty highlighting for vim
 Plug 'maxmellon/vim-jsx-pretty'
