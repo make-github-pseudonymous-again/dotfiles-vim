@@ -158,7 +158,7 @@ call plug#end()
 
 " Use hidden buffers. Allows to change buffer without saving.
 set hidden
-" Give more space for displaying messages.
+" Give more space for displaying messages. (coc.nvim)
 set cmdheight=2
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamedplus
@@ -170,6 +170,11 @@ set esckeys
 set backspace=indent,eol,start
 " Optimize for fast terminal connections
 set ttyfast
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience. (coc.nvim)
+set updatetime=300
+" Don't pass messages to |ins-completion-menu|. (coc.nvim)
+set shortmess+=c
 " Add the g flag to search/replace by default
 " From vim.wikia.com:
 " > Using :set gdefault creates confusion because then %s/// is global,
@@ -287,6 +292,14 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
   " Treat .sage files as .py
   autocmd BufNewFile,BufRead *.sage setlocal filetype=python syntax=python softtabstop=4 shiftwidth=4 expandtab
+  "Note: for React to work as expected, you need your JSX filetype to be
+  "javascript.jsx or javascriptreact and your TSX filetype to be typescript.jsx or
+  "typescript.tsx or typescriptreact. In coc.nvim, these filetypes are mapped to
+  "javascriptreact and typescriptreact because that's what tsserver uses. For
+  "filetype like typescript.javascript, you need configure g:coc_filetype_map
+  "variable in vimrc. (https://github.com/neoclide/coc-tsserver)
+  autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript.jsx syntax=javascript
+  autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx syntax=javascript
 endif
 
 " Set colors
@@ -575,3 +588,44 @@ let g:tex_comment_nospell= 1
 " https://vi.stackexchange.com/questions/68/autocorrect-spelling-mistakes#312
 " https://www.reddit.com/r/vim/comments/4xgof3/improvements_to_awesome_correct_spelling_shortcut
 " https://vi.stackexchange.com/questions/15051/how-can-i-use-multiple-spell-files-at-the-same-time
+
+
+" coc.nvim
+
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming.
+nmap <leader>N <Plug>(coc-rename)
