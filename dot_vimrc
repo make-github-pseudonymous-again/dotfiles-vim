@@ -367,6 +367,11 @@ noremap <silent> <leader>e :enew<CR>
 noremap <silent> <leader>w :StripWhitespace<CR>
 autocmd FileType javascript,python,c,cpp,java,html,css,ruby autocmd BufWritePre <buffer> StripWhitespace
 
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " Recognize all .tex files as LaTeX
 let g:tex_flavor = 'latex'
 
