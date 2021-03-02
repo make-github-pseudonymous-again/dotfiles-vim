@@ -131,15 +131,30 @@ Plug 'tpope/vim-abolish'
 
 " ## SHORTCUTS ##
 " pairs of handy bracket mappings
+"   - {[,]}<space>: add newlines
+"   - {[,]}e: exchange lines
+"   - yos: toggle spellcheck
+"   - {[,]}u: URL encode/decode
+"   - ... https://github.com/tpope/vim-unimpaired/blob/master/doc/unimpaired.txt
 Plug 'tpope/vim-unimpaired'
 " use CTRL-A/CTRL-X to increment dates, times, and more
 Plug 'tpope/vim-speeddating'
 " quoting/parenthesizing made simple
+"   - cs"': replace "..." by '...' (works with <html>: cs'<q>, cst")
+"   - ds": replace "..." by ...
+"   - ysiw]: replaces <cword> by [<cword>]
+"   - ysiW[: replaces <cWord> by [ <cWord> ]
+"   - yss_: replace line by _line_
+"   - In visual mode `S_`
 Plug 'tpope/vim-surround'
 " intensely orgasmic commenting
-Plug 'scrooloose/nerdcommenter'
-" A Vim alignment plugin
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+"   - ,ci: toggle comment
+"   - ,cs: stylized comment
+"   - ,c$: comment from position until EOL
+"   - ,cA: add comment at the end of a line
+Plug 'preservim/nerdcommenter'
+" A Vim alignment plugin (vipga=, gaip=)
+Plug 'https://github.com/junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 " A vim plugin that simplifies the transition between multiline and single-line code (gS gJ)
 Plug 'AndrewRadev/splitjoin.vim'
 
@@ -151,7 +166,7 @@ Plug 'junegunn/fzf.vim'
 "Plug 'nhooyr/fasd.vim'
 
 " ## PREVIEW ##
-" markdown preview plugin for (neo)vim
+" markdown preview plugin for (neo)vim (:MarkdownPreview)
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 call plug#end()
