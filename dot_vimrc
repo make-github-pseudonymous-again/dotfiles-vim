@@ -5,7 +5,7 @@ set nocompatible              " be iMproved, be safe
 " https://github.com/junegunn/vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
@@ -205,8 +205,8 @@ let mapleader=","
 set backupdir=~/.vim/backups//
 set directory=~/.vim/swaps//
 if has("persistent_undo")
-    set undodir=~/.vim/undo//
-    set undofile
+  set undodir=~/.vim/undo//
+  set undofile
 endif
 
 " Don’t create backups when editing files in certain directories
@@ -242,7 +242,7 @@ function! s:enable_autonumber()
   augroup END
 endfunction
 function! s:disable_autonumber()
-    au! rn_autonumber
+  au! rn_autonumber
 endfunction
 call s:enable_autonumber()
 " Make tabs as wide as four spaces
@@ -336,14 +336,14 @@ endif
 "let g:netrw_browsex_viewer = 'xdg-open'
 "let g:netrw_http_cmd = 'xdg-open'
 function! OpenURLUnderCursor()
-    let s:uri = expand('<cWORD>')
-    let s:uri = matchstr(s:uri, '[a-z]*:\/\/\([A-Za-z0-9._~:/?#@!$&*+,;=-]\|%[0-9a-fA-F]{2}\)*')
-    let s:uri = substitute(s:uri, '?', '\\?', '')
-    let s:uri = shellescape(s:uri, 1)
-    if s:uri != ''
-      silent exec "!wb --new-window ".s:uri
-      :redraw!
-    endif
+  let s:uri = expand('<cWORD>')
+  let s:uri = matchstr(s:uri, '[a-z]*:\/\/\([A-Za-z0-9._~:/?#@!$&*+,;=-]\|%[0-9a-fA-F]{2}\)*')
+  let s:uri = substitute(s:uri, '?', '\\?', '')
+  let s:uri = shellescape(s:uri, 1)
+  if s:uri != ''
+    silent exec "!wb --new-window ".s:uri
+    :redraw!
+  endif
 endfunction
 nnoremap gx :call OpenURLUnderCursor()<cr>
 
@@ -462,11 +462,11 @@ let g:fzf_files_options = '--preview "begin; coderay {}; or cat {}; end 2>/dev/n
 
 " https://github.com/junegunn/fzf.vim/issues/714#issuecomment-428802659
 command! -bang -nargs=* Rg
- \ call fzf#vim#grep(
- \ "rg --hidden -g '!.git/*' -g '!*.pdf' --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>),
- \ 1,
- \ {'options': '--delimiter : --nth 4..'},
- \ <bang>0)
+      \ call fzf#vim#grep(
+      \ "rg --hidden -g '!.git/*' -g '!*.pdf' --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>),
+      \ 1,
+      \ {'options': '--delimiter : --nth 4..'},
+      \ <bang>0)
 
 " fasd mappings
 command! -nargs=* Z :call Z(<f-args>)
@@ -565,8 +565,7 @@ augroup END
 let g:vimtex_view_method = "mupdf"
 
 function! s:latexSurround()
-  let b:surround_{char2nr("e")}
-    \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
+  let b:surround_{char2nr("e")} = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
   let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
   " vim-surround: q for `foo' and Q for ``foo''
   let b:surround_{char2nr('q')} = "`\r'"
