@@ -336,6 +336,12 @@ if &diff
   syntax off
 endif
 
+" Allow typos when saving and quitting.
+command WQ wq
+command Wq wq
+command W w
+command Q q
+
 " This is BROKEN (https://github.com/vim/vim/issues/4738)
 "let g:netrw_browsex_viewer = 'xdg-open'
 "let g:netrw_http_cmd = 'xdg-open'
