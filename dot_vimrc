@@ -41,16 +41,14 @@ Plug 'andymass/vim-matchup'
 Plug 'flazz/vim-colorschemes'
 " Vim plugin that displays tags in a window, ordered by scope
 " Lean & mean status/tabline for vim that's light as air.
-" Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+"Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 " should be loaded before vim-airline but does not work :(
 Plug 'vim-airline/vim-airline'
 " A collection of themes for vim-airline
 Plug 'vim-airline/vim-airline-themes'
 " Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
 Plug 'airblade/vim-gitgutter'
-" Plug 'mhinz/vim-signify' " possible alternative
-" A tree explorer plugin for vim.
-"Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+"Plug 'mhinz/vim-signify' " possible alternative
 " Preview colours in source code while editing
 Plug 'ap/vim-css-color', { 'for': 'css' }
 " causes all trailing whitespace characters (spaces and tabs) to be highlighted
@@ -72,39 +70,32 @@ Plug 'junegunn/limelight.vim'
 
 " ## COMPLETION ##
 " allows you to use <Tab> for all your insert completion needs (I use coc.nvim)
-" Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 " Vim plugin, provides insert mode auto-completion for quotes, parens, brackets, etc.
 Plug 'Raimondi/delimitMate'
 
 " ## LANGUAGE SUPPORT ##
-" Syntax checking hacks for vim
-" Plug 'vim-syntastic/syntastic'
 " Nodejs extension host for vim, load extensions like VSCode and host language servers
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 " Provide easy code formatting in Vim by integrating existing code formatters.
 Plug 'Chiel92/vim-autoformat'
 " plug-in which provides support for expanding abbreviations similar to emmet (I do not write HTML)
-" Plug 'mattn/emmet-vim'
+"Plug 'mattn/emmet-vim'
 " Generate JSDoc to your JavaScript code
 Plug 'heavenshell/vim-jsdoc', { 'do': 'make install' }
 " Go development plugin for Vim (I do not write Go)
-" Plug 'fatih/vim-go'
-" tern is a JavaScript code analyzer for deep, cross-editor language support (Does not work well)
-" Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+"Plug 'fatih/vim-go'
 " Enhanced javascript syntax file for Vim
-" Plug 'jelera/vim-javascript-syntax'
+"Plug 'jelera/vim-javascript-syntax'
 " Vastly improved Javascript indentation and syntax support in Vim
 Plug 'pangloss/vim-javascript'
 " The most accurate syntax highlighting plugin for JavaScript and Flow.js
 " (I do not like the different color for native functions and methods).
-" Plug 'yuezk/vim-js'
+"Plug 'yuezk/vim-js'
 " JSX and TSX syntax pretty highlighting for vim
 Plug 'maxmellon/vim-jsx-pretty'
 " :heart: JavaScript happiness style linter
-" Plug 'xojs/vim-xo'
-" A code-completion engine for Vim
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
-" Compiling requires too much memory, fails every time
+"Plug 'xojs/vim-xo'
 " A modern vim plugin for editing LaTeX files
 Plug 'lervag/vimtex'
 " A vim plugin for writing Latex quickly
@@ -114,20 +105,15 @@ Plug 'brennier/quicktex'
 " Vim syntax for TOML
 Plug 'https://github.com/cespare/vim-toml'
 " A vim 7.4+ plugin to generate table of contents for Markdown files. (too slow)
-" Plug 'https://github.com/mzlogin/vim-markdown-toc'
+"Plug 'https://github.com/mzlogin/vim-markdown-toc'
 " The ultimate snippet solution for Vim. (coc.nvim does not implement the " entire spec)
 Plug 'https://github.com/SirVer/ultisnips'
 " Snippet library (A lot of things I won't use in there, better define my own snippets)
-" Plug 'https://github.com/honza/vim-snippets'
+"Plug 'https://github.com/honza/vim-snippets'
 
 " ## MOTIONS ##
 " search and jump to a single character with <leader><leader>s<char>
 Plug 'easymotion/vim-easymotion'
-
-" ## SELECTION ##
-" True Sublime Text style multiple selections for Vim
-"Plug 'terryma/vim-multiple-cursors'
-"
 
 " ## SEARCH & REPLACE ##
 " easily search for, substitute, and abbreviate multiple variants of a word
@@ -345,6 +331,7 @@ command Q q
 " This is BROKEN (https://github.com/vim/vim/issues/4738)
 "let g:netrw_browsex_viewer = 'xdg-open'
 "let g:netrw_http_cmd = 'xdg-open'
+" What follows JUST WORKS
 function! OpenURLUnderCursor()
   let s:uri = expand('<cWORD>')
   let s:uri = matchstr(s:uri, '[a-z]*:\/\/\([A-Za-z0-9._~:/?#@!$&*+,;=-]\|%[0-9a-fA-F]{2}\)*')
@@ -370,9 +357,6 @@ map  N <Plug>(easymotion-prev)
 " open a new buffer
 noremap <silent> <leader>e :enew<cr>
 
-" toggle nerdtree
-"noremap <silent> <leader>t :NERDTreeToggle<cr>
-
 " Strip trailing whitespace (w)
 noremap <silent> <leader>w :StripWhitespace<cr>
 autocmd FileType javascript,python,c,cpp,java,html,css,ruby autocmd BufWritePre <buffer> StripWhitespace
@@ -388,18 +372,6 @@ let g:tex_flavor = 'latex'
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-
-" Experimentally integrate YouCompleteMe with vim-multiple-cursors, otherwise
-" the numerous Cursor events cause great slowness
-" (https://github.com/kristijanhusak/vim-multiple-cursors/issues/4)
-
-" function! Multiple_cursors_before()
-" let s:old_ycm_whitelist = g:ycm_filetype_whitelist
-" let g:ycm_filetype_whitelist = {}
-" endfunction
-" function! Multiple_cursors_after()
-" let g:ycm_filetype_whitelist = s:old_ycm_whitelist
-" endfunction
 
 " Syntax highlighting
 " Enable jsdoc highlighting in pangloss/vim-javascript
