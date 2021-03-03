@@ -80,7 +80,7 @@ Plug 'Raimondi/delimitMate'
 " Syntax checking hacks for vim
 " Plug 'vim-syntastic/syntastic'
 " Nodejs extension host for vim, load extensions like VSCode and host language servers
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 " Provide easy code formatting in Vim by integrating existing code formatters.
 Plug 'Chiel92/vim-autoformat'
 " plug-in which provides support for expanding abbreviations similar to emmet (I do not write HTML)
