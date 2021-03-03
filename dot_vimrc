@@ -115,6 +115,10 @@ Plug 'brennier/quicktex'
 Plug 'https://github.com/cespare/vim-toml'
 " A vim 7.4+ plugin to generate table of contents for Markdown files. (too slow)
 " Plug 'https://github.com/mzlogin/vim-markdown-toc'
+" The ultimate snippet solution for Vim. (coc.nvim does not implement the " entire spec)
+Plug 'https://github.com/SirVer/ultisnips'
+" Snippet library (A lot of things I won't use in there, better define my own snippets)
+" Plug 'https://github.com/honza/vim-snippets'
 
 " ## MOTIONS ##
 " search and jump to a single character with <leader><leader>s<char>
@@ -379,9 +383,6 @@ let g:tex_flavor = 'latex'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
-" <cr> expands {_} to {<cr><indent>_<cr>}
-let g:delimitMate_expand_cr = 1
-
 " Experimentally integrate YouCompleteMe with vim-multiple-cursors, otherwise
 " the numerous Cursor events cause great slowness
 " (https://github.com/kristijanhusak/vim-multiple-cursors/issues/4)
@@ -609,31 +610,75 @@ let g:tex_comment_nospell= 1
 " https://vi.stackexchange.com/questions/15051/how-can-i-use-multiple-spell-files-at-the-same-time
 
 
-" coc.nvim
+" Combine UltiSnips, delimitMate, and coc.nvim
+" Note: inspired by
+"   - https://github.com/SirVer/ultisnips/issues/932#issuecomment-377509576
 
-" Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Disable UltiSnips default shortcuts.
+let g:UltiSnipsExpandTrigger="<nul>"
+let g:UltiSnipsJumpForwardTrigger = "<nul>"
+let g:UltiSnipsJumpBackwardTrigger = "<nul>"
+" Make :UltiSnipsEdit split the window.
+let g:UltiSnipsEditSplit="vertical"
 
-function! s:check_back_space() abort
+function! s:is_preceded_by_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+let g:ulti_expand_or_jump_res = 0
+function! s:Mytab()
+  if s:is_preceded_by_space()
+    " Nothing to complete, forward <tab> for e.g. indentation.
+    return "\<tab>"
+  elseif pumvisible() == 1
+    " The completion list is open, navigate down.
+    return "\<C-n>"
+  endif
+  " Expand snippet, or jump in snippet, or open completion menu.
+  call UltiSnips#ExpandSnippetOrJump()
+  return g:ulti_expand_or_jump_res > 0 ? "" : coc#refresh()
+endfunction
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+let g:ulti_jump_backwards_res = 0
+function! s:Mystab()
+  if pumvisible() == 1
+    " The completion list is open, navigate up.
+    return "\<C-p>"
+  endif
+  " Jump backwards in snippet or forward key-stroke.
+  call UltiSnips#JumpBackwards()
+  return g:ulti_expand_or_jump_res > 0 ? "" : "\<s-tab>"
+endfunction
+
+inoremap <silent> <tab>   <C-R>=<SID>Mytab()<cr>
+snoremap <silent> <tab>   <Esc>:call UltiSnips#JumpForwards()<cr>
+inoremap <silent> <s-tab> <C-R>=<SID>Mystab()<cr>
+snoremap <silent> <s-tab> <Esc>:call UltiSnips#JumpBackwards()<cr>
+
+" Use <c-k> to trigger completion unconditionally. Useful inside a snippet
+" since <tab> will not trigger completion in that case.
+" Note: that <c-@> for <c-space> does not seem to work unless sourcing the
+" config again. The mappings seem correct though and typing `^V^@` in insert
+" mode works before and after sourcing .vimrc.
+inoremap <silent><expr> <C-k> coc#refresh()
+
+" Make <cr> auto-select the first completion item if menu is open, or
+" <cr> expands {_} to {<cr><indent>_<cr>} via delimitMate,
+" otherwise forward keystroke.
+let g:delimitMate_expand_cr = 0 " We setup delimitMate manually.
+inoremap <silent><expr> <cr>
+      \ pumvisible()
+      \ ? coc#_select_confirm()
+      \ : delimitMate#WithinEmptyPair()
+      \ ? "\<C-R>=delimitMate#ExpandReturn()\<cr>"
+      \ : "\<cr>"
+
+
+" coc.nvim shortcuts
+
+" Open fix options for the current line.
+nmap <leader>a :CocFix<cr>
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
