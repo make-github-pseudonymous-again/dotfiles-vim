@@ -287,10 +287,10 @@ nn <silent> <leader>V :source $MYVIMRC<cr>
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<cr>
 
-" Automatic commands
-if has("autocmd")
-  " Enable file type detection
-  filetype on
+" Enable file type detection
+filetype on
+augroup filetypes
+  au!
   " Treat .json files as .js
   autocmd BufNewFile,BufRead *.json setlocal filetype=json syntax=javascript
   " Treat .md files as Markdown
@@ -305,7 +305,7 @@ if has("autocmd")
   "variable in vimrc. (https://github.com/neoclide/coc-tsserver)
   autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript.jsx syntax=javascript
   autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx syntax=javascript
-endif
+augroup END
 
 " Set colors
 set t_Co=256
@@ -359,7 +359,10 @@ noremap <silent> <leader>e :enew<cr>
 
 " Strip trailing whitespace (w)
 noremap <silent> <leader>w :StripWhitespace<cr>
-autocmd FileType javascript,python,c,cpp,java,html,css,ruby autocmd BufWritePre <buffer> StripWhitespace
+augroup StripWhiteSpace
+  au!
+  autocmd FileType javascript,python,c,cpp,java,html,css,ruby autocmd BufWritePre <buffer> StripWhitespace
+augroup END
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -536,7 +539,7 @@ nn <silent> <leader>i :InsertEmoji<cr>
 
 " vimtex + surround = magic
 augroup latexSurround
-  autocmd!
+  au!
   autocmd FileType tex,plaintex call s:latexSurround()
 augroup END
 
@@ -573,10 +576,14 @@ vnoremap <S-f> "hy:.Subvert/<C-r>=escape(@",'/\^$.*[~')<cr>//g<left><left>
 nnoremap SS :s//&\r/g<cr>
 
 " spelling
-autocmd BufRead,BufNewFile *.tex setlocal spell
-autocmd BufRead,BufNewFile *.md setlocal spell
-autocmd BufRead,BufNewFile *.mmark setlocal spell
-autocmd FileType mail setlocal spell
+augroup spelling
+  au!
+  autocmd FileType tex,plaintex setlocal spell
+  autocmd BufRead,BufNewFile *.tex setlocal spell
+  autocmd BufRead,BufNewFile *.md setlocal spell
+  autocmd BufRead,BufNewFile *.mmark setlocal spell
+  autocmd FileType mail setlocal spell
+augroup END
 
 set spelllang=en_us
 " set spellfile=~/.vim/spell/en.utf-8.add
