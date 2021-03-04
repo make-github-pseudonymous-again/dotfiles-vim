@@ -178,8 +178,6 @@ set ttyfast
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience. (coc.nvim)
 set updatetime=300
-" Don't pass messages to |ins-completion-menu|. (coc.nvim)
-set shortmess+=c
 " Add the g flag to search/replace by default
 " From vim.wikia.com:
 " > Using :set gdefault creates confusion because then %s/// is global,
@@ -598,6 +596,8 @@ let g:tex_comment_nospell= 1
 " Combine UltiSnips, delimitMate, and coc.nvim
 " Note: inspired by
 "   - https://github.com/SirVer/ultisnips/issues/932#issuecomment-377509576
+" Don't pass messages to |ins-completion-menu|. (coc.nvim)
+set shortmess+=c
 
 " Disable UltiSnips default shortcuts.
 let g:UltiSnipsExpandTrigger="<nul>"
