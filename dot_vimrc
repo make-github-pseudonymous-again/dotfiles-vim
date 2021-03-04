@@ -592,12 +592,18 @@ let g:tex_comment_nospell= 1
 " https://www.reddit.com/r/vim/comments/4xgof3/improvements_to_awesome_correct_spelling_shortcut
 " https://vi.stackexchange.com/questions/15051/how-can-i-use-multiple-spell-files-at-the-same-time
 
-
-" Combine UltiSnips, delimitMate, and coc.nvim
+" Combine native complete, UltiSnips, delimitMate, and coc.nvim
 " Note: inspired by
 "   - https://github.com/SirVer/ultisnips/issues/932#issuecomment-377509576
+"   - https://www.youtube.com/watch?v=2f8h45YR494
+
 " Don't pass messages to |ins-completion-menu|. (coc.nvim)
 set shortmess+=c
+" Add spelling dictionary suggestions to native complete menu when available.
+set complete+=kspell
+" Open menu even if single option, autocomplete LCP, display additional info in
+" popup rather than preview window.
+set completeopt=menuone,longest,popup
 
 " Disable UltiSnips default shortcuts.
 let g:UltiSnipsExpandTrigger="<nul>"
