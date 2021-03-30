@@ -700,3 +700,14 @@ endfunction
 
 " Use gl to highlight the symbol and its references.
 nnoremap <silent> gl :call CocActionAsync('highlight')<cr>
+
+" coc.nvim custom async update function
+function! s:CocUpdateCallback(err, ...) abort
+  if a:err
+    echo a:err
+  else
+    execute 'qall'
+  endif
+endfunction
+
+command! CocUpdateAsyncWaitThenQuit :call CocActionAsync('updateExtensions', v:false, function('<sid>CocUpdateCallback'))
