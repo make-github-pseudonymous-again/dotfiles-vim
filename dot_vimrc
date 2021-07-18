@@ -381,7 +381,7 @@ let g:javascript_plugin_jsdoc = 1
 " Shortcut for formatting code
 nn <silent> <leader>x :Autoformat<cr>
 let g:formatters_javascript = ['xo_javascript', 'eslint_local']
-let g:formatdef_xo_javascript = '"xo --fix --stdin"'
+let g:formatdef_xo_javascript = '"npx -- xo --fix --stdin"'
 
 " clean up gvim interface
 if has('gui_running')
