@@ -438,7 +438,6 @@ nn <silent> <leader>b :Buffers<cr>
 nn <silent> <leader>o :History<cr>
 nn <silent> <leader>q :Rg<cr>
 let $FZF_DEFAULT_COMMAND= 'fd -t f -H -E ".git/*" -E "*.pdf"'
-let g:fzf_files_options = '--preview "begin; coderay {}; or cat {}; end 2>/dev/null | head -'.&lines.'"'
 
 " https://github.com/junegunn/fzf.vim/issues/714#issuecomment-428802659
 command! -bang -nargs=* Rg
