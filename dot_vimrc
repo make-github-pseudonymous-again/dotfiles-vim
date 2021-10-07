@@ -540,6 +540,12 @@ augroup latexSurround
   autocmd FileType tex,plaintex call s:latexSurround()
 augroup END
 
+" text layout configuration
+augroup layout
+  au!
+  autocmd FileType gitcommit setlocal colorcolumn=73
+augroup END
+
 " vimtex synctex
 let g:vimtex_view_method = "mupdf"
 
