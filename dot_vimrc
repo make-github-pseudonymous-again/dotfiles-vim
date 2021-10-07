@@ -258,7 +258,7 @@ set ruler
 " Automatically cut long lines
 set tw=79
 " Adds a guide for maximum length of lines
-set colorcolumn=80
+set colorcolumn=+1
 " Don’t show the intro message when starting Vim
 set shortmess=atI
 " Show the current mode
@@ -538,12 +538,6 @@ nn <silent> <leader>i :InsertEmoji<cr>
 augroup latexSurround
   au!
   autocmd FileType tex,plaintex call s:latexSurround()
-augroup END
-
-" text layout configuration
-augroup layout
-  au!
-  autocmd FileType gitcommit setlocal colorcolumn=73
 augroup END
 
 " vimtex synctex
