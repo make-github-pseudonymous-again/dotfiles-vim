@@ -586,6 +586,7 @@ augroup spelling
   autocmd BufRead,BufNewFile *.md setlocal spell
   autocmd BufRead,BufNewFile *.mmark setlocal spell
   autocmd FileType mail setlocal spell
+  autocmd FileType gitcommit setlocal spell
 augroup END
 
 set spelllang=en_us
