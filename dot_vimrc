@@ -258,7 +258,7 @@ set ruler
 " Automatically cut long lines
 set tw=79
 " Adds a guide for maximum length of lines
-set colorcolumn=79
+set colorcolumn=80
 " Don’t show the intro message when starting Vim
 set shortmess=atI
 " Show the current mode
