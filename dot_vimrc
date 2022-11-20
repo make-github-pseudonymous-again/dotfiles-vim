@@ -612,39 +612,35 @@ let g:UltiSnipsJumpBackwardTrigger = "<nul>"
 " Make :UltiSnipsEdit split the window.
 let g:UltiSnipsEditSplit="vertical"
 
-function! s:is_preceded_by_space() abort
+function! IsPrecededBySpace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 let g:ulti_expand_or_jump_res = 0
-function! s:Mytab()
-  if s:is_preceded_by_space()
-    " Nothing to complete, forward <tab> for e.g. indentation.
-    return "\<tab>"
-  elseif pumvisible() == 1
-    " The completion list is open, navigate down.
-    return "\<C-n>"
-  endif
-  " Expand snippet, or jump in snippet, or open completion menu.
+function! ExpandSnippetOrJumpForwardInSnippet()
+  " Expand snippet, or jump in snippet, or no-op, returns 1 on success.
   call UltiSnips#ExpandSnippetOrJump()
-  return g:ulti_expand_or_jump_res > 0 ? "" : coc#refresh()
+  return g:ulti_expand_or_jump_res > 0 ? 1 : 0
 endfunction
 
 let g:ulti_jump_backwards_res = 0
-function! s:Mystab()
-  if pumvisible() == 1
-    " The completion list is open, navigate up.
-    return "\<C-p>"
-  endif
-  " Jump backwards in snippet or forward key-stroke.
+function! JumpBackwardsInSnippet()
+  " Jump backwards in snippet or no-op, returns 1 on success.
   call UltiSnips#JumpBackwards()
-  return g:ulti_expand_or_jump_res > 0 ? "" : "\<s-tab>"
+  return g:ulti_jump_backwards_res > 0 ? 1 : 0
 endfunction
 
-inoremap <silent> <tab>   <C-R>=<SID>Mytab()<cr>
+inoremap <silent><expr> <tab>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ IsPrecededBySpace() ? "\<tab>" :
+      \ ExpandSnippetOrJumpForwardInSnippet() ? "" :
+      \ coc#refresh()
 snoremap <silent> <tab>   <Esc>:call UltiSnips#JumpForwards()<cr>
-inoremap <silent> <s-tab> <C-R>=<SID>Mystab()<cr>
+inoremap <silent><expr> <s-tab>
+      \ coc#pum#visible() ? coc#pum#prev(1) :
+      \ JumpBackwardsInSnippet() ? "" :
+      \ "\<s-tab>"
 snoremap <silent> <s-tab> <Esc>:call UltiSnips#JumpBackwards()<cr>
 
 " Use <c-k> to trigger completion unconditionally. Useful inside a snippet
@@ -659,8 +655,8 @@ inoremap <silent><expr> <C-k> coc#refresh()
 " otherwise forward keystroke.
 let g:delimitMate_expand_cr = 0 " We setup delimitMate manually.
 inoremap <silent><expr> <cr>
-      \ pumvisible()
-      \ ? coc#_select_confirm()
+      \ coc#pum#visible()
+      \ ? coc#pum#confirm()
       \ : delimitMate#WithinEmptyPair()
       \ ? "\<C-R>=delimitMate#ExpandReturn()\<cr>"
       \ : "\<cr>"
