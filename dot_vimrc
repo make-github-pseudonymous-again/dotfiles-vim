@@ -98,8 +98,6 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'lervag/vimtex'
 " A vim plugin for writing Latex quickly
 Plug 'brennier/quicktex'
-" Official Vimperator syntax highlighting file.
-"Plug 'vimperator/vimperator.vim'
 " Vim syntax for TOML
 Plug 'https://github.com/cespare/vim-toml'
 " A vim 7.4+ plugin to generate table of contents for Markdown files. (too slow)
