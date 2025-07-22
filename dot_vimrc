@@ -38,7 +38,7 @@ Plug 'andymass/vim-matchup'
 
 " ## VISUAL ##
 " one colorscheme pack to rule them all!
-Plug 'flazz/vim-colorschemes'
+Plug 'make-github-pseudonymous-again/vim-colorschemes'
 " Vim plugin that displays tags in a window, ordered by scope
 " Lean & mean status/tabline for vim that's light as air.
 "Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
