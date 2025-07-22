@@ -99,9 +99,9 @@ Plug 'lervag/vimtex'
 " A vim plugin for writing Latex quickly
 Plug 'brennier/quicktex'
 " A vim 7.4+ plugin to generate table of contents for Markdown files. (too slow)
-"Plug 'https://github.com/mzlogin/vim-markdown-toc'
+"Plug 'mzlogin/vim-markdown-toc'
 " Snippet library (A lot of things I won't use in there, better define my own snippets)
-"Plug 'https://github.com/honza/vim-snippets'
+"Plug 'honza/vim-snippets'
 
 " ## MOTIONS ##
 " search and jump to a single character with <leader><leader>s<char>
@@ -136,7 +136,7 @@ Plug 'tpope/vim-surround'
 "   - ,cA: add comment at the end of a line
 Plug 'preservim/nerdcommenter'
 " A Vim alignment plugin (vipga=, gaip=)
-Plug 'https://github.com/junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 " A vim plugin that simplifies the transition between multiline and single-line code (gS gJ)
 Plug 'AndrewRadev/splitjoin.vim'
 
