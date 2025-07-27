@@ -106,8 +106,6 @@ Plug 'brennier/quicktex'
 Plug 'https://github.com/cespare/vim-toml'
 " A vim 7.4+ plugin to generate table of contents for Markdown files. (too slow)
 "Plug 'https://github.com/mzlogin/vim-markdown-toc'
-" The ultimate snippet solution for Vim. (coc.nvim does not implement the " entire spec)
-Plug 'https://github.com/SirVer/ultisnips'
 " Snippet library (A lot of things I won't use in there, better define my own snippets)
 "Plug 'https://github.com/honza/vim-snippets'
 
@@ -372,6 +370,8 @@ let g:tex_flavor = 'latex'
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#coc#show_coc_status = 1
 let g:airline_powerline_fonts = 1
 
 " Syntax highlighting
@@ -592,11 +592,6 @@ let g:tex_comment_nospell= 1
 " https://www.reddit.com/r/vim/comments/4xgof3/improvements_to_awesome_correct_spelling_shortcut
 " https://vi.stackexchange.com/questions/15051/how-can-i-use-multiple-spell-files-at-the-same-time
 
-" Combine native complete, UltiSnips, delimitMate, and coc.nvim
-" Note: inspired by
-"   - https://github.com/SirVer/ultisnips/issues/932#issuecomment-377509576
-"   - https://www.youtube.com/watch?v=2f8h45YR494
-
 " Don't pass messages to |ins-completion-menu|. (coc.nvim)
 set shortmess+=c
 " Add spelling dictionary suggestions to native complete menu when available.
@@ -605,43 +600,19 @@ set complete+=kspell
 " popup rather than preview window.
 set completeopt=menuone,longest,popup
 
-" Disable UltiSnips default shortcuts.
-let g:UltiSnipsExpandTrigger="<nul>"
-let g:UltiSnipsJumpForwardTrigger = "<nul>"
-let g:UltiSnipsJumpBackwardTrigger = "<nul>"
-" Make :UltiSnipsEdit split the window.
-let g:UltiSnipsEditSplit="vertical"
-
 function! IsPrecededBySpace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:ulti_expand_or_jump_res = 0
-function! ExpandSnippetOrJumpForwardInSnippet()
-  " Expand snippet, or jump in snippet, or no-op, returns 1 on success.
-  call UltiSnips#ExpandSnippetOrJump()
-  return g:ulti_expand_or_jump_res > 0 ? 1 : 0
-endfunction
-
-let g:ulti_jump_backwards_res = 0
-function! JumpBackwardsInSnippet()
-  " Jump backwards in snippet or no-op, returns 1 on success.
-  call UltiSnips#JumpBackwards()
-  return g:ulti_jump_backwards_res > 0 ? 1 : 0
-endfunction
-
 inoremap <silent><expr> <tab>
-      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ IsPrecededBySpace() ? "\<tab>" :
-      \ ExpandSnippetOrJumpForwardInSnippet() ? "" :
       \ coc#refresh()
-snoremap <silent> <tab>   <Esc>:call UltiSnips#JumpForwards()<cr>
-inoremap <silent><expr> <s-tab>
-      \ coc#pum#visible() ? coc#pum#prev(1) :
-      \ JumpBackwardsInSnippet() ? "" :
-      \ "\<s-tab>"
-snoremap <silent> <s-tab> <Esc>:call UltiSnips#JumpBackwards()<cr>
+
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<s-tab>'
 
 " Use <c-k> to trigger completion unconditionally. Useful inside a snippet
 " since <tab> will not trigger completion in that case.
@@ -664,8 +635,25 @@ inoremap <silent><expr> <cr>
 
 " coc.nvim shortcuts
 
-" Open fix options for the current line.
-nmap <leader>a :CocFix<cr>
+" Applying code actions to the selected code block
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying code actions at the cursor position
+nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+" Remap keys for apply code actions affect whole buffer
+nmap <leader>as  <Plug>(coc-codeaction-source)
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>af  <Plug>(coc-fix-current)
+
+" Run the Code Lens action on the current line
+nmap <leader>al  <Plug>(coc-codelens-action)
+
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>are <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>ar  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>ar  <Plug>(coc-codeaction-refactor-selected)
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -675,7 +663,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gl <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Symbol renaming.
@@ -685,12 +673,10 @@ nmap <leader>N <Plug>(coc-rename)
 nnoremap <silent> gk :call <sid>show_documentation()<cr>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
